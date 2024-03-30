@@ -2,6 +2,7 @@ package com.devsuperior.eventos.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 @Entity
 @Table(name = "tb_atividade")
@@ -10,11 +11,20 @@ public class Atividade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    @Column(columnDefinition = "TEXT")
     private String descricao;
     private Double preco;
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
+
+    @ManyToMany
+    @JoinTable(
+            name = "participante_atividade",
+            joinColumns = @JoinColumn(name = "atividade_id"),
+            inverseJoinColumns = @JoinColumn(name = "participante_id")
+    )
+    private List<Participante> participantes;
 
     public Atividade(){
     }
