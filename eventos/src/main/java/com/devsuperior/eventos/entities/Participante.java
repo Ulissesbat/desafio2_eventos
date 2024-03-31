@@ -15,7 +15,12 @@ public class Participante {
     @Column(unique = true)
     private String email;
 
-    @ManyToMany(mappedBy = "participantes")
+    @ManyToMany
+    @JoinTable(
+            name = "atividade_participante",
+            joinColumns = @JoinColumn(name = "participante_id"),
+            inverseJoinColumns = @JoinColumn(name = "atividade_id")
+    )
     private List<Atividade> atividades;
     public Participante(){
     }
@@ -48,6 +53,10 @@ public class Participante {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Atividade> getAtividades() {
+        return atividades;
     }
 
     @Override

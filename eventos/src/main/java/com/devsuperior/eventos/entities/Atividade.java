@@ -18,13 +18,11 @@ public class Atividade {
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
-    @ManyToMany
-    @JoinTable(
-            name = "participante_atividade",
-            joinColumns = @JoinColumn(name = "atividade_id"),
-            inverseJoinColumns = @JoinColumn(name = "participante_id")
-    )
+    @ManyToMany(mappedBy = "atividades")
     private List<Participante> participantes;
+
+    @OneToMany(mappedBy = "atividade")
+    private List<Bloco> blocos;
 
     public Atividade(){
     }
